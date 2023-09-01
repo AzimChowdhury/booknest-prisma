@@ -1,0 +1,15 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "C:\\Users\\User\\Desktop\\DEV Projects\\Level -2 Assignments\\Assignment-8\\booknest-prisma-postgresql\\logs\\winston\\errors\\.3fd18c63aa88139023e7aafaf80597a20c05604f-audit.json",
+    "files": [
+        {
+            "date": 1693495065564,
+            "name": "C:\\Users\\User\\Desktop\\DEV Projects\\Level -2 Assignments\\Assignment-8\\booknest-prisma-postgresql\\logs\\winston\\errors\\phu-2023-31-08-21-error.log",
+            "hash": "a96d54b6538276f0be107e6226411c339bd62e13ca9bdcd5cec02d14edc1f56b"
+        }
+    ],
+    "hashType": "sha256"
+}
