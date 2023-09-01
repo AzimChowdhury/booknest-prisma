@@ -15,8 +15,10 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.get('/', async (req, res) => {
+  res.send('server running');
+});
 app.use('/api/v1', routes);
-
 
 //global error handler
 app.use(globalErrorHandler);
