@@ -1,3 +1,4 @@
+import { User } from '@prisma/client';
 import prisma from '../../../shared/prisma';
 
 const getAllUsers = async () => {
@@ -10,46 +11,40 @@ const getAllUsers = async () => {
   };
 };
 
-// const getByIdFromDB = async (id: string): Promise<Room | null> => {
-//   const result = await prisma.room.findUnique({
-//     where: {
-//       id,
-//     },
-//     include: {
-//       building: true,
-//     },
-//   });
-//   return result;
-// };
+const getSingleUser = async (id: string) => {
+  const result = await prisma.user.findUnique({
+    where: {
+      id,
+    },
+  });
+  return result;
+};
 
-// const updateOneInDB = async (
-//   id: string,
-//   payload: Partial<Room>
-// ): Promise<Room> => {
-//   const result = await prisma.room.update({
-//     where: {
-//       id,
-//     },
-//     data: payload,
-//     include: {
-//       building: true,
-//     },
-//   });
-//   return result;
-// };
+const updateSingleUser = async (
+  id: string,
+  payload: Partial<User>
+): Promise<User> => {
+  const result = await prisma.user.update({
+    where: {
+      id,
+    },
+    data: payload,
+  });
+  return result;
+};
 
-// const deleteByIdFromDB = async (id: string): Promise<Room> => {
-//   const result = await prisma.room.delete({
-//     where: {
-//       id,
-//     },
-//     include: {
-//       building: true,
-//     },
-//   });
-//   return result;
-// };
+const deleteSingleUser = async (id: string): Promise<User> => {
+  const result = await prisma.user.delete({
+    where: {
+      id,
+    },
+  });
+  return result;
+};
 
 export const UserServices = {
   getAllUsers,
+  getSingleUser,
+  updateSingleUser,
+  deleteSingleUser,
 };
