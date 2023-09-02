@@ -4,14 +4,6 @@
       {
         "src": "dist/server.js",
         "use": "@vercel/node"
-      },
-      {
-        "src": "prisma/schema.prisma",  
-        "use": "@prisma/cli",
-        "config": {
-          "prisma": "prisma/schema.prisma",  
-          "output": "generated/client"
-        }
       }
     ],
     "routes": [
