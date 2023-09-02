@@ -46,13 +46,27 @@ const updateSingleCategory = async (
   return result;
 };
 
-const deleteSingleCategory = async (id: string): Promise<Category> => {
-  const result = await prisma.category.delete({
-    where: {
-      id,
-    },
-  });
-  return result;
+const deleteSingleCategory = async (id: string) => {
+  try {
+    await prisma.$transaction(async transaction => {
+      await transaction.book.deleteMany({
+        where: {
+          categoryId: id,
+        },
+      });
+
+      await transaction.category.delete({
+        where: {
+          id: id,
+        },
+      });
+    });
+    return 'category deleted successfully';
+  } catch (error) {
+    throw new Error('failed to delete category');
+  } finally {
+    await prisma.$disconnect();
+  }
 };
 
 export const CategoryServices = {
