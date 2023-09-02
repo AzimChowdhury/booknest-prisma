@@ -64,14 +64,6 @@ model ReviewAndRating {
   @@map("Review_and_Ratings")
 }
 
-// model Order {
-//   id           String   @id @default(uuid())
-//   userId       String
-//   user         User     @relation(fields: [userId], references: [id])
-//   orderedBooks Json
-//   status       status   @default(pending)
-//   createdAt    DateTime @default(now())
-// }
 model OrderedBook {
   id       String @id @default(uuid())
   bookId   String

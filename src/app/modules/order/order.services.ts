@@ -1,4 +1,6 @@
 import { Order } from '@prisma/client';
+import httpStatus from 'http-status';
+import ApiError from '../../../errors/ApiError';
 import prisma from '../../../shared/prisma';
 
 const createOrder = async (data: Order): Promise<Order> => {
@@ -11,33 +13,83 @@ const createOrder = async (data: Order): Promise<Order> => {
   return result;
 };
 
-// const getAllBooks = async () => {
-//   const result = await prisma.book.findMany();
-//   const total = await prisma.book.count();
+const getAllOrders = async (user: any) => {
+  const { role, email } = user;
+  if (!(role && email)) {
+    throw new ApiError(httpStatus.FORBIDDEN, 'forbidden');
+  }
+  if (role === 'customer') {
+    const user = await prisma.user.findFirst({
+      where: {
+        email,
+      },
+    });
+    if (user) {
+      const result = await prisma.order.findMany({
+        where: {
+          userId: user.id,
+        },
+        include: {
+          orderedBooks: true,
+        },
+      });
+      return result;
+    }
+  } else if (role === 'admin') {
+    const result = await prisma.order.findMany({
+      include: {
+        orderedBooks: true,
+      },
+    });
+    return result;
+  }
 
-//   return {
-//     total,
-//     data: result,
-//   };
-// };
+  return 'unAuthorized';
+};
 
-// const getBookByCategoryId = async (id: string) => {
-//   const result = await prisma.book.findMany({
-//     where: {
-//       categoryId: id,
-//     },
-//   });
-//   return result;
-// };
+const getSingleOrderByOrderId = async (orderId: string, user: any) => {
+  const { role, email } = user;
+  if (!(role && email)) {
+    throw new ApiError(httpStatus.FORBIDDEN, 'forbidden');
+  }
+  if (role === 'customer') {
+    const user = await prisma.user.findFirst({
+      where: {
+        email,
+      },
+    });
+    if (user) {
+      const order = await prisma.orderedBook.findFirst({
+        where: {
+          orderId,
+        },
+        include: {
+          order: true,
+        },
+      });
 
-// const getSingleBook = async (id: string) => {
-//   const result = await prisma.book.findUnique({
-//     where: {
-//       id,
-//     },
-//   });
-//   return result;
-// };
+      if (order?.order.userId === user.id) {
+        return order;
+      } else {
+        throw new ApiError(httpStatus.NOT_FOUND, 'order not found');
+      }
+    } else {
+      throw new ApiError(httpStatus.NOT_FOUND, 'order not found');
+    }
+  } else if (role === 'admin') {
+    const result = await prisma.orderedBook.findFirst({
+      where: {
+        orderId,
+      },
+      include: {
+        order: true,
+      },
+    });
+    return result;
+  }
+
+  return 'unAuthorized';
+};
 
 // const updateSingleBook = async (
 //   id: string,
@@ -121,4 +173,6 @@ const createOrder = async (data: Order): Promise<Order> => {
 
 export const OrderServices = {
   createOrder,
+  getAllOrders,
+  getSingleOrderByOrderId,
 };

@@ -14,16 +14,31 @@ const createBook = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
-// const getAllBooks = catchAsync(async (req: Request, res: Response) => {
-//   const result = await BookServices.getAllBooks();
-//   sendResponse(res, {
-//     statusCode: httpStatus.OK,
-//     success: true,
-//     message: 'Book fetched successfully',
-//     data: result,
-//   });
-// });
+const getAllOrders = catchAsync(async (req: Request, res: Response) => {
+  const result = await OrderServices.getAllOrders(req.user);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Order fetched successfully',
+    data: result,
+  });
+});
 
+const getSingleOrderByOrderId = catchAsync(
+  async (req: Request, res: Response) => {
+    const { orderId } = req.params;
+    const result = await OrderServices.getSingleOrderByOrderId(
+      orderId,
+      req.user
+    );
+    sendResponse(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'Order fetched successfully',
+      data: result,
+    });
+  }
+);
 // const getBookByCategoryId = catchAsync(async (req: Request, res: Response) => {
 //   const { id } = req.params;
 //   const result = await BookServices.getBookByCategoryId(id);
@@ -70,4 +85,6 @@ const createBook = catchAsync(async (req: Request, res: Response) => {
 
 export const OrderController = {
   createBook,
+  getAllOrders,
+  getSingleOrderByOrderId,
 };
