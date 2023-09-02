@@ -54,6 +54,16 @@
             "date": 1693591261026,
             "name": "C:\\Users\\User\\Desktop\\DEV Projects\\Level -2 Assignments\\Assignment-8\\booknest-prisma-postgresql\\logs\\winston\\successes\\phu-2023-02-09-00-success.log",
             "hash": "5a82875ccb5ede3732bb15b51c373cc4c932a164f8cca8bcfe867e59a82df48a"
+        },
+        {
+            "date": 1693630125384,
+            "name": "C:\\Users\\User\\Desktop\\DEV Projects\\Level -2 Assignments\\Assignment-8\\booknest-prisma-postgresql\\logs\\winston\\successes\\phu-2023-02-09-10-success.log",
+            "hash": "76b1eae3161a878db3edd7b5c7350bee5ca46384171372a532fccb131798bcd2"
+        },
+        {
+            "date": 1693631385810,
+            "name": "C:\\Users\\User\\Desktop\\DEV Projects\\Level -2 Assignments\\Assignment-8\\booknest-prisma-postgresql\\logs\\winston\\successes\\phu-2023-02-09-11-success.log",
+            "hash": "ff5b02ec5712ece96d6c786014161706fa6a78268d88691227135f62f7512730"
         }
     ],
     "hashType": "sha256"
